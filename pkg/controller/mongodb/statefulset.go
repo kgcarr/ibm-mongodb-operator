@@ -35,7 +35,7 @@ spec:
   template:
     metadata:
       labels:
-        app.kubernetes.io/instance: common-mongo
+        app.kubernetes.io/instance: common-mongodb
         app: icp-mongodb
         release: mongodb
       annotations:
