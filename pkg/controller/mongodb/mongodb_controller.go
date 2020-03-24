@@ -87,6 +87,69 @@ func add(mgr manager.Manager, r reconcile.Reconciler) error {
 		return err
 	}
 
+	// Watch for changes to secondary resource ClusterRoles and requeue the owner MongoDB
+	err = c.Watch(&source.Kind{Type: &rbacv1.Role{}}, &handler.EnqueueRequestForOwner{
+		IsController: true,
+		OwnerType:    &operatorv1alpha1.MongoDB{},
+	})
+	if err != nil {
+		return err
+	}
+
+	// Watch for changes to secondary resource RoleBindings and requeue the owner MongoDB
+	err = c.Watch(&source.Kind{Type: &rbacv1.RoleBinding{}}, &handler.EnqueueRequestForOwner{
+		IsController: true,
+		OwnerType:    &operatorv1alpha1.MongoDB{},
+	})
+	if err != nil {
+		return err
+	}
+
+	// Watch for changes to secondary resource ServiceAccounts and requeue the owner MongoDB
+	err = c.Watch(&source.Kind{Type: &corev1.ServiceAccount{}}, &handler.EnqueueRequestForOwner{
+		IsController: true,
+		OwnerType:    &operatorv1alpha1.MongoDB{},
+	})
+	if err != nil {
+		return err
+	}
+
+	// Watch changes to custom resource defintions that are owned by this operator - in case of deletion or changes
+	err = c.Watch(&source.Kind{Type: &apiextensionsAPIv1beta1.CustomResourceDefinition{}}, &handler.EnqueueRequestForOwner{
+		IsController: true,
+		OwnerType:    &operatorv1alpha1.MongoDB{},
+	})
+	if err != nil {
+		return err
+	}
+
+	// Watch changes to custom resource defintions that are owned by this operator - in case of deletion or changes
+	err = c.Watch(&source.Kind{Type: &apiextensionsAPIv1beta1.CustomResourceDefinition{}}, &handler.EnqueueRequestForOwner{
+		IsController: true,
+		OwnerType:    &operatorv1alpha1.MongoDB{},
+	})
+	if err != nil {
+		return err
+	}
+
+	// Watch changes to apiservice that are owned by this operator - in case of deletion or changes
+	err = c.Watch(&source.Kind{Type: &apiRegv1.APIService{}}, &handler.EnqueueRequestForOwner{
+		IsController: true,
+		OwnerType:    &operatorv1alpha1.MongoDB{},
+	})
+	if err != nil {
+		return err
+	}
+
+	// Watch changes to service that are owned by this operator - in case of deletion or changes
+	err = c.Watch(&source.Kind{Type: &corev1.Service{}}, &handler.EnqueueRequestForOwner{
+		IsController: true,
+		OwnerType:    &operatorv1alpha1.MongoDB{},
+	})
+	if err != nil {
+		return err
+	}
+
 	return nil
 }
 
