@@ -295,6 +295,11 @@ func (r *ReconcileMongoDB) Reconcile(request reconcile.Request) (reconcile.Resul
 		return reconcile.Result{}, err
 	}
 
+	// Set CommonServiceConfig instance as the owner and controller
+	if err := controllerutil.SetControllerReference(instance, stsYaml.Bytes(), r.scheme); err != nil {
+		return reconcile.Result{}, err
+	}
+
 	log.Info("creating mongodb statefulset")
 	if err := r.createFromYaml(instance, stsYaml.Bytes()); err != nil {
 		return reconcile.Result{}, err
