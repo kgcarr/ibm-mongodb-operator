@@ -296,7 +296,7 @@ func (r *ReconcileMongoDB) Reconcile(request reconcile.Request) (reconcile.Resul
 	}
 
 	// Set CommonServiceConfig instance as the owner and controller
-	if err := controllerutil.SetControllerReference(instance, stsYaml.Bytes(), r.scheme); err != nil {
+	if err := controllerutil.SetControllerReference(instance, stsYaml, r.scheme); err != nil {
 		return reconcile.Result{}, err
 	}
 
