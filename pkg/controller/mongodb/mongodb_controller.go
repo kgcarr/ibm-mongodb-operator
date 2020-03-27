@@ -295,10 +295,6 @@ func (r *ReconcileMongoDB) Reconcile(request reconcile.Request) (reconcile.Resul
 		return reconcile.Result{}, err
 	}
 
-	// Set CommonServiceConfig instance as the owner and controller
-	if err := controllerutil.SetControllerReference(instance, t.Execute(&stsYaml, stsData), r.scheme); err != nil {
-		return reconcile.Result{}, err
-	}
 
 	log.Info("creating mongodb statefulset")
 	if err := r.createFromYaml(instance, stsYaml.Bytes()); err != nil {
@@ -324,6 +320,11 @@ func (r *ReconcileMongoDB) Reconcile(request reconcile.Request) (reconcile.Resul
 	// Get the StatefulSet
 	sts := &appsv1.StatefulSet{}
 	if err = r.client.Get(context.TODO(), types.NamespacedName{Name: "icp-mongodb", Namespace: instance.Namespace}, sts); err != nil {
+		return reconcile.Result{}, err
+	}
+
+	// Set CommonServiceConfig instance as the owner and controller of statefulset
+	if err := controllerutil.SetControllerReference(instance, sts, r.scheme); err != nil {
 		return reconcile.Result{}, err
 	}
 
