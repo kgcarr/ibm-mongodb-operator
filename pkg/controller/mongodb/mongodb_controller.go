@@ -79,75 +79,24 @@ func add(mgr manager.Manager, r reconcile.Reconciler) error {
 
 	// TODO(user): Modify this to be the types you create that are owned by the primary resource
 	// Watch for changes to secondary resource Pods and requeue the owner MongoDB
-	err = c.Watch(&source.Kind{Type: &corev1.Pod{}}, &handler.EnqueueRequestForOwner{
-		IsController: true,
-		OwnerType:    &operatorv1alpha1.MongoDB{},
-	})
-	if err != nil {
-		return err
+	// IBMDev: Done
+	secondaryResourceTypes := []runtime.Object{
+		&appsv1.StatefulSet{},
+		&corev1.Service{},
+		&corev1.Secret{},
+		&corev1.ConfigMap{},
+		&corev1.Pod{},
+		&corev1.PersistentVolumeClaim{},
 	}
-
-	// Watch for changes to secondary resource ClusterRoles and requeue the owner MongoDB
-	err = c.Watch(&source.Kind{Type: &rbacv1.Role{}}, &handler.EnqueueRequestForOwner{
-		IsController: true,
-		OwnerType:    &operatorv1alpha1.MongoDB{},
-	})
-	if err != nil {
-		return err
-	}
-
-	// Watch for changes to secondary resource RoleBindings and requeue the owner MongoDB
-	err = c.Watch(&source.Kind{Type: &rbacv1.RoleBinding{}}, &handler.EnqueueRequestForOwner{
-		IsController: true,
-		OwnerType:    &operatorv1alpha1.MongoDB{},
-	})
-	if err != nil {
-		return err
-	}
-
-	// Watch for changes to secondary resource ServiceAccounts and requeue the owner MongoDB
-	err = c.Watch(&source.Kind{Type: &corev1.ServiceAccount{}}, &handler.EnqueueRequestForOwner{
-		IsController: true,
-		OwnerType:    &operatorv1alpha1.MongoDB{},
-	})
-	if err != nil {
-		return err
-	}
-
-	// Watch changes to custom resource defintions that are owned by this operator - in case of deletion or changes
-	err = c.Watch(&source.Kind{Type: &apiextensionsAPIv1beta1.CustomResourceDefinition{}}, &handler.EnqueueRequestForOwner{
-		IsController: true,
-		OwnerType:    &operatorv1alpha1.MongoDB{},
-	})
-	if err != nil {
-		return err
-	}
-
-	// Watch changes to custom resource defintions that are owned by this operator - in case of deletion or changes
-	err = c.Watch(&source.Kind{Type: &apiextensionsAPIv1beta1.CustomResourceDefinition{}}, &handler.EnqueueRequestForOwner{
-		IsController: true,
-		OwnerType:    &operatorv1alpha1.MongoDB{},
-	})
-	if err != nil {
-		return err
-	}
-
-	// Watch changes to apiservice that are owned by this operator - in case of deletion or changes
-	err = c.Watch(&source.Kind{Type: &apiRegv1.APIService{}}, &handler.EnqueueRequestForOwner{
-		IsController: true,
-		OwnerType:    &operatorv1alpha1.MongoDB{},
-	})
-	if err != nil {
-		return err
-	}
-
-	// Watch changes to service that are owned by this operator - in case of deletion or changes
-	err = c.Watch(&source.Kind{Type: &corev1.Service{}}, &handler.EnqueueRequestForOwner{
-		IsController: true,
-		OwnerType:    &operatorv1alpha1.MongoDB{},
-	})
-	if err != nil {
-		return err
+	for _, restype := range secondaryResourceTypes {
+		log.Info("Watching", "restype", restype)
+		err = c.Watch(&source.Kind{Type: restype}, &handler.EnqueueRequestForOwner{
+			IsController: true,
+			OwnerType:    &operatorv1alpha1.MongoDB{},
+		})
+		if err != nil {
+			return err
+		}
 	}
 
 	return nil
@@ -407,6 +356,10 @@ func (r *ReconcileMongoDB) createFromYaml(instance *operatorv1alpha1.MongoDB, ya
 	}
 
 	obj.SetNamespace(instance.Namespace)
+
+	//Get the k8s Kind of the object being rendered
+	kind := obj.GetKind()
+	log.Info("Kind being created is %s", kind)
 
 	// Set CommonServiceConfig instance as the owner and controller
 	if err := controllerutil.SetControllerReference(instance, obj, r.scheme); err != nil {
