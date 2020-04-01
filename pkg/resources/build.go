@@ -22,7 +22,7 @@ import (
 
 	//logf "sigs.k8s.io/controller-runtime/pkg/log"
 
-	operatorv1alpha1 "github.com/ibm/ibm-mongodb-operator/pkg/apis/operator/v1alpha1"
+	operatorv1alpha1 "github.com/IBM/ibm-mongodb-operator/pkg/apis/operator/v1alpha1"
 	//certmgr "github.com/jetstack/cert-manager/pkg/apis/certmanager/v1alpha1"
 	//yaml "gopkg.in/yaml.v2"
 	//appsv1 "k8s.io/api/apps/v1"
