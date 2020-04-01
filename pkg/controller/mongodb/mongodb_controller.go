@@ -23,7 +23,7 @@ import (
 	"text/template"
 	"time"
 
-	builder "github.com/ibm/ibm-mongodb-operator/pkg/resources"
+	builder "ibm-mongodb-operator/pkg/resources/build"
 	"github.com/ghodss/yaml"
 	appsv1 "k8s.io/api/apps/v1"
 	corev1 "k8s.io/api/core/v1"
