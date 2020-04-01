@@ -23,6 +23,7 @@ import (
 	"text/template"
 	"time"
 
+	builder "github.com/ibm/ibm-auditlogging-operator/pkg/resources"
 	"github.com/ghodss/yaml"
 	appsv1 "k8s.io/api/apps/v1"
 	corev1 "k8s.io/api/core/v1"
@@ -170,10 +171,20 @@ func (r *ReconcileMongoDB) Reconcile(request reconcile.Request) (reconcile.Resul
 	}
 
 	log.Info("creating icp mongodb install config map")
-
-	if err := r.createFromYaml(instance, []byte(installConfigMap)); err != nil {
-		return reconcile.Result{}, err
-	}
+	installConfigMap, err := builder.BuildConfigMap(instance, "icp-mongodb-install")
+	log.Info("Creating a new ConfigMap", "ConfigMap.Name", installConfigMap.Name)
+	err = r.client.Create(context.TODO(), installConfigMap)
+	if err != nil && errors.IsAlreadyExists(err) {
+			// Already exists from previous reconcile, requeue.
+			return reconcile.Result{Requeue: true}, nil
+		} else if err != nil {
+			reqLogger.Error(err, "Failed to create new ConfigMap", "ConfigMap.Namespace", newConfigMap.Namespace,
+				"ConfigMap.Name", newConfigMap.Name)
+			return reconcile.Result{}, err
+		}
+	//if err := r.createFromYaml(instance, []byte(installConfigMap)); err != nil {
+	//	return reconcile.Result{}, err
+	//}
 
 	// Create admin user and password as random string
 	// TODO: allow user to give a Secret
@@ -359,7 +370,7 @@ func (r *ReconcileMongoDB) createFromYaml(instance *operatorv1alpha1.MongoDB, ya
 
 	//Get the k8s Kind of the object being rendered
 	kind := obj.GetKind()
-	log.Info("Kind being created is %s", kind)
+	log.Info("Kind being created is " kind)
 
 	// Set CommonServiceConfig instance as the owner and controller
 	if err := controllerutil.SetControllerReference(instance, obj, r.scheme); err != nil {
