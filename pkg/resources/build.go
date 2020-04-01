@@ -57,7 +57,7 @@ func BuildConfigMap(instance *operatorv1alpha1.MongoDB, name string) (*corev1.Co
     Object.metav1.ObjectMeta{
       Name: name,
       Labels: labels,
-    }
+    },
     Data: dataSection,
   }
 
