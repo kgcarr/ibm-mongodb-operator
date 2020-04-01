@@ -17,20 +17,20 @@
 package resources
 
 import (
-	"reflect"
-	"strconv"
+	//"reflect"
+	//"strconv"
 
-	logf "sigs.k8s.io/controller-runtime/pkg/log"
+	//logf "sigs.k8s.io/controller-runtime/pkg/log"
 
-	operatorv1alpha1 "github.com/ibm/ibm-auditlogging-operator/pkg/apis/operator/v1alpha1"
-	certmgr "github.com/jetstack/cert-manager/pkg/apis/certmanager/v1alpha1"
-	yaml "gopkg.in/yaml.v2"
-	appsv1 "k8s.io/api/apps/v1"
+	operatorv1alpha1 "github.com/ibm/ibm-mongodb-operator/pkg/apis/operator/v1alpha1"
+	//certmgr "github.com/jetstack/cert-manager/pkg/apis/certmanager/v1alpha1"
+	//yaml "gopkg.in/yaml.v2"
+	//appsv1 "k8s.io/api/apps/v1"
 	corev1 "k8s.io/api/core/v1"
-	rbacv1 "k8s.io/api/rbac/v1"
-	extv1beta1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
+	//rbacv1 "k8s.io/api/rbac/v1"
+	//extv1beta1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/util/intstr"
+	//"k8s.io/apimachinery/pkg/util/intstr"
 )
 
 //constant values for annotations
