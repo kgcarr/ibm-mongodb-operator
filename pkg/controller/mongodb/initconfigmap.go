@@ -291,7 +291,7 @@ data:
             sleep 3
 
             log "Creating admin user..."
-            mongo admin "${ssl_args[@]}" --eval "db.createUser({user: '$admin_user', pwd: '$admin_password', roles: [{role: 'root', db: 'admin'}]})"
+            mongo admin "${ssl_args[@]}" --eval "db.createUser({user: '$ADMIN_USER', pwd: '$ADMIN_PASSWORD', roles: [{role: 'root', db: 'admin'}]})"
         fi
 
         log "Done initiating replicaset."
