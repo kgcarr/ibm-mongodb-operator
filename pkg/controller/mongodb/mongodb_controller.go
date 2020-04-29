@@ -355,9 +355,10 @@ func (r *ReconcileMongoDB) createFromYaml(instance *operatorv1alpha1.MongoDB, ya
 		return fmt.Errorf("could not Create resource: %v", err)
 	}
 	if errors.IsAlreadyExists(err) {
-		currentObject := r.client.Get(context.TODO(), client.ObjectKey{
+		currentObject := &unstructured.Unstructured{}
+		r.client.Get(context.TODO(), client.ObjectKey{
 			Namespace: instance.Namespace,
-			Name: obj.Name})
+			Name: obj.Name}, currentObject)
 		obj.SetCreationTimeStamp(currentObject.GetCreationTimeStamp())
 		obj.SetOwnerReferences(currentObject.GetOwnerReferences())
 		obj.SetResourceVersion(currentObject.GetResourceVersion())
