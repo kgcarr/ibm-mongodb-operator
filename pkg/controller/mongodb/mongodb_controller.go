@@ -356,7 +356,7 @@ func (r *ReconcileMongoDB) createFromYaml(instance *operatorv1alpha1.MongoDB, ya
 	}
 	if errors.IsAlreadyExists(err) {
 		currentObject := &unstructured.Unstructured{}
-		r.client.Get(context.TODO(), client.ObjectKey{
+		r.reader.Get(context.TODO(), client.ObjectKey{
 			Namespace: instance.Namespace,
 			Name: obj.GetName()}, currentObject)
 		obj.SetCreationTimestamp(currentObject.GetCreationTimestamp())
