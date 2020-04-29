@@ -366,6 +366,8 @@ func (r *ReconcileMongoDB) createFromYaml(instance *operatorv1alpha1.MongoDB, ya
 		obj.SetUID(currentObject.GetUID())
    	err = r.client.Update(context.TODO(), obj)
      if err != nil {
+			 log.Info("Current Resource: %v", currentObject)
+			 log.Info("Bad Resource: %v", obj)
        return fmt.Errorf("could not Update resource: %v", err)
      }
   }
