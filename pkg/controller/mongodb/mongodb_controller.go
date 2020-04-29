@@ -359,7 +359,7 @@ func (r *ReconcileMongoDB) createFromYaml(instance *operatorv1alpha1.MongoDB, ya
 		r.client.Get(context.TODO(), client.ObjectKey{
 			Namespace: instance.Namespace,
 			Name: obj.GetName()}, currentObject)
-		obj.SetCreationTimeStamp(currentObject.GetCreationTimeStamp())
+		obj.SetCreationTimestamp(currentObject.GetCreationTimestamp())
 		obj.SetOwnerReferences(currentObject.GetOwnerReferences())
 		obj.SetResourceVersion(currentObject.GetResourceVersion())
 		obj.SetSelfLink(currentObject.GetSelfLink())
