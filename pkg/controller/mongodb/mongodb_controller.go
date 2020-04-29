@@ -354,6 +354,13 @@ func (r *ReconcileMongoDB) createFromYaml(instance *operatorv1alpha1.MongoDB, ya
 	if err != nil && !errors.IsAlreadyExists(err) {
 		return fmt.Errorf("could not Create resource: %v", err)
 	}
+	if errors.IsAlreadyExists(err) {
+           	err = r.client.Update(context.TODO(), obj)
+             if err != nil {
+               return fmt.Errorf("could not Update resource: %v", err)
+             }
+  }
+
 
 	return nil
 }
