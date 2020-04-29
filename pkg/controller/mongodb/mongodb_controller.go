@@ -355,25 +355,31 @@ func (r *ReconcileMongoDB) createFromYaml(instance *operatorv1alpha1.MongoDB, ya
 		return fmt.Errorf("could not Create resource: %v", err)
 	}
 	if errors.IsAlreadyExists(err) {
-		currentObject := &unstructured.Unstructured{}
-		r.reader.Get(context.TODO(), client.ObjectKey{
-			Namespace: instance.Namespace,
-			Name: obj.GetName()}, currentObject)
+		currentObject, err := getObject(obj)
+		if err != nil {
+			return fmt.Errorf("Error Getting Current Object: %v", err)
+		}
 		obj.SetCreationTimestamp(currentObject.GetCreationTimestamp())
 		obj.SetOwnerReferences(currentObject.GetOwnerReferences())
 		obj.SetResourceVersion(currentObject.GetResourceVersion())
 		obj.SetSelfLink(currentObject.GetSelfLink())
 		obj.SetUID(currentObject.GetUID())
-   	err = r.client.Update(context.TODO(), obj)
+   	err = r.client.Update(context.TODO(), obj) 
      if err != nil {
-			 log.Info("Current Resource: %v", currentObject)
-			 log.Info("Bad Resource: %v", obj)
        return fmt.Errorf("could not Update resource: %v", err)
      }
   }
 
-
 	return nil
+}
+
+func getObject(obj *unstructured.Unstructured) (*unstructured.Unstructured, error) {
+	found := &unstructured.Unstructured{}
+	found.SetGroupVersionKind(obj.GetObjectKind().GroupVersionKind())
+
+	err := r.reader.Get(context.TODO(), types.NamespacedName{Name: obj.GetName(), Namespace: obj.GetNamespace()}, found)
+
+	return found, err
 }
 
 func (r *ReconcileMongoDB) getstorageclass() (string, error) {
