@@ -355,7 +355,7 @@ func (r *ReconcileMongoDB) createFromYaml(instance *operatorv1alpha1.MongoDB, ya
 		return fmt.Errorf("could not Create resource: %v", err)
 	}
 	if errors.IsAlreadyExists(err) {
-		currentObject, err := getObject(obj)
+		currentObject, err := getObject(obj, r.reader)
 		if err != nil {
 			return fmt.Errorf("Error Getting Current Object: %v", err)
 		}
@@ -364,7 +364,7 @@ func (r *ReconcileMongoDB) createFromYaml(instance *operatorv1alpha1.MongoDB, ya
 		obj.SetResourceVersion(currentObject.GetResourceVersion())
 		obj.SetSelfLink(currentObject.GetSelfLink())
 		obj.SetUID(currentObject.GetUID())
-   	err = r.client.Update(context.TODO(), obj) 
+   	err = r.client.Update(context.TODO(), obj)
      if err != nil {
        return fmt.Errorf("could not Update resource: %v", err)
      }
@@ -373,11 +373,11 @@ func (r *ReconcileMongoDB) createFromYaml(instance *operatorv1alpha1.MongoDB, ya
 	return nil
 }
 
-func getObject(obj *unstructured.Unstructured) (*unstructured.Unstructured, error) {
+func getObject(obj *unstructured.Unstructured, reader client.Reader) (*unstructured.Unstructured, error) {
 	found := &unstructured.Unstructured{}
 	found.SetGroupVersionKind(obj.GetObjectKind().GroupVersionKind())
 
-	err := r.reader.Get(context.TODO(), types.NamespacedName{Name: obj.GetName(), Namespace: obj.GetNamespace()}, found)
+	err := reader.Get(context.TODO(), types.NamespacedName{Name: obj.GetName(), Namespace: obj.GetNamespace()}, found)
 
 	return found, err
 }
