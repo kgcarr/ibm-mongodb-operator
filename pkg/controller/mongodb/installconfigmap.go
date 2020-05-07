@@ -14,7 +14,7 @@
 // limitations under the License.
 //
 package mongodb
-
+// Converted
 const installConfigMap = `
 ---
 # Source: icp-mongodb/templates/mongodb-install-configmap.yaml

@@ -15,6 +15,7 @@
 //
 package mongodb
 
+// Converted
 const initConfigMap = `
 ---
 # Source: icp-mongodb/templates/mongodb-init-configmap.yaml

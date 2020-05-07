@@ -15,6 +15,14 @@
 //
 package mongodb
 
+import(
+  "testing"
+  "fmt"
+  corev1 "k8s.io/api/core/v1"
+  metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+  "k8s.io/apimachinery/pkg/util/intstr"
+)
+
 const icpService = `
 apiVersion: v1
 kind: Service
@@ -36,6 +44,31 @@ spec:
   ports:
     - name: peer
       port: 27017
+  selector:
+    app: icp-mongodb
+    release: mongodb
+`
+
+const service = `
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app.kubernetes.io/name: icp-mongodb
+    app.kubernetes.io/instance: icp-mongodb
+    app.kubernetes.io/version: 4.0.12-build.3
+    app.kubernetes.io/component: database
+    app.kubernetes.io/part-of: common-services-cloud-pak
+    app.kubernetes.io/managed-by: operator
+    release: mongodb
+  name: mongodb
+spec:
+  serviceAccountName: ibm-mongodb-operator
+  type: ClusterIP
+  ports:
+  - port: 27017
+    protocol: TCP
+    targetPort: 27017
   selector:
     app: icp-mongodb
     release: mongodb
