@@ -67,6 +67,9 @@ spec:
                   - amd64
                   - ppc64le
                   - s390x
+      securityContext:
+        runAsGroup: {{ .FSGroup }}
+        fsGroup: {{ .FSGroup }}
       initContainers:
         - name: install
           image: "{{ .InitImage }}"

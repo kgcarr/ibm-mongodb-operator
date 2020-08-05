@@ -259,6 +259,14 @@ func (r *ReconcileMongoDB) Reconcile(request reconcile.Request) (reconcile.Resul
 		storageclass = instance.Status.StorageClass
 	}
 
+	var fsgroup string
+	// Check if FSGroup is in specs, otherwise default
+	if instance.Spec.FSGroup == "" {
+		fsgroup = 13001
+	} else {
+		fsgroup = instance.Spec.FSGroup
+	}
+
 	stsData := struct {
 		Replicas       int
 		ImageRepo      string
@@ -266,6 +274,7 @@ func (r *ReconcileMongoDB) Reconcile(request reconcile.Request) (reconcile.Resul
 		InitImage      string
 		BootstrapImage string
 		MetricsImage   string
+		FSGroup				 string
 	}{
 		Replicas:       instance.Spec.Replicas,
 		ImageRepo:      instance.Spec.ImageRegistry,
@@ -273,6 +282,7 @@ func (r *ReconcileMongoDB) Reconcile(request reconcile.Request) (reconcile.Resul
 		InitImage:      os.Getenv("INIT_MONGODB_IMAGE"),
 		BootstrapImage: os.Getenv("MONGODB_IMAGE"),
 		MetricsImage:   os.Getenv("EXPORTER_MONGODB_IMAGE"),
+		FSGroup:				fsgroup,
 	}
 
 	var stsYaml bytes.Buffer
