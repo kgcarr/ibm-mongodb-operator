@@ -34,7 +34,7 @@ type MongoDBSpec struct {
 	InitImage      Image  `json:"initImage,omitempty"`
 	BootstrapImage Image  `json:"bootstrapImage,omitempty"`
 	MetricsImage   Image  `json:"metricsImage,omitempty"`
-	FSGroup        int `json:"fsgroup,omitempty"`
+	FSGroup        int 		`json:"fsgroup,omitempty"`
 }
 
 // MongoDBStatus defines the observed state of MongoDB

@@ -274,7 +274,7 @@ func (r *ReconcileMongoDB) Reconcile(request reconcile.Request) (reconcile.Resul
 		InitImage      string
 		BootstrapImage string
 		MetricsImage   string
-		FSGroup        string
+		FSGroup        int
 	}{
 		Replicas:       instance.Spec.Replicas,
 		ImageRepo:      instance.Spec.ImageRegistry,
