@@ -259,7 +259,7 @@ func (r *ReconcileMongoDB) Reconcile(request reconcile.Request) (reconcile.Resul
 		storageclass = instance.Status.StorageClass
 	}
 
-	var fsgroup string
+	var fsgroup int
 	// Check if FSGroup is in specs, otherwise default
 	if instance.Spec.FSGroup == "" {
 		fsgroup = 13001
