@@ -261,7 +261,7 @@ func (r *ReconcileMongoDB) Reconcile(request reconcile.Request) (reconcile.Resul
 
 	var fsgroup int
 	// Check if FSGroup is in specs, otherwise default
-	if instance.Spec.FSGroup == "" {
+	if instance.Spec.FSGroup == 0 {
 		fsgroup = 13001
 	} else {
 		fsgroup = instance.Spec.FSGroup
