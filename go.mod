@@ -3,34 +3,14 @@ module github.com/IBM/ibm-mongodb-operator
 go 1.13
 
 require (
-	cloud.google.com/go v0.62.0 // indirect
-	github.com/Azure/go-autorest/autorest v0.11.3 // indirect
-	github.com/coreos/prometheus-operator v0.41.0 // indirect
-	github.com/emicklei/go-restful v2.13.0+incompatible // indirect
 	github.com/ghodss/yaml v1.0.1-0.20190212211648-25d852aebe32
-	github.com/go-logr/zapr v0.2.0 // indirect
-	github.com/go-openapi/spec v0.19.9 // indirect
-	github.com/google/gofuzz v1.1.0 // indirect
-	github.com/googleapis/gnostic v0.5.1 // indirect
-	github.com/gophercloud/gophercloud v0.12.0 // indirect
-	github.com/imdario/mergo v0.3.10 // indirect
-	github.com/mailru/easyjson v0.7.2 // indirect
-	github.com/operator-framework/operator-sdk v0.19.2
-	github.com/prometheus/common v0.11.1 // indirect
+	github.com/operator-framework/operator-sdk v0.15.1
 	github.com/spf13/pflag v1.0.5
-	go.uber.org/zap v1.15.0 // indirect
-	golang.org/x/crypto v0.0.0-20200728195943-123391ffb6de // indirect
-	golang.org/x/sys v0.0.0-20200806060901-a37d78b92225 // indirect
-	golang.org/x/time v0.0.0-20200630173020-3af7569d3a1e // indirect
-	gomodules.xyz/jsonpatch/v2 v2.1.0 // indirect
-	k8s.io/api v0.18.6
-	k8s.io/apimachinery v0.18.6
+	k8s.io/api v0.17.2
+	k8s.io/apimachinery v0.17.2
 	k8s.io/client-go v12.0.0+incompatible
-	k8s.io/klog/v2 v2.3.0 // indirect
-	k8s.io/kube-openapi v0.0.0-20200727223308-4c7aaf529f79
-	k8s.io/kube-state-metrics v1.9.7 // indirect
-	k8s.io/utils v0.0.0-20200731180307-f00132d28269 // indirect
-	sigs.k8s.io/controller-runtime v0.6.2
+	k8s.io/kube-openapi v0.0.0-20190918143330-0270cf2f1c1d
+	sigs.k8s.io/controller-runtime v0.5.1
 )
 
 // Pinned to kubernetes-1.16.2
