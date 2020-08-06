@@ -5,27 +5,18 @@ go 1.13
 require (
 	cloud.google.com/go v0.62.0 // indirect
 	github.com/Azure/go-autorest/autorest v0.11.3 // indirect
-	github.com/ant31/crd-validation v0.0.0-20180702145049-30f8a35d0ac2 // indirect
 	github.com/coreos/prometheus-operator v0.41.0 // indirect
 	github.com/emicklei/go-restful v2.13.0+incompatible // indirect
 	github.com/ghodss/yaml v1.0.1-0.20190212211648-25d852aebe32
 	github.com/go-logr/zapr v0.2.0 // indirect
 	github.com/go-openapi/spec v0.19.9 // indirect
-	github.com/gobuffalo/packr v1.30.1 // indirect
 	github.com/google/gofuzz v1.1.0 // indirect
 	github.com/googleapis/gnostic v0.5.1 // indirect
 	github.com/gophercloud/gophercloud v0.12.0 // indirect
-	github.com/gregjones/httpcache v0.0.0-20190203031600-7a902570cb17 // indirect
-	github.com/helm/helm-2to3 v0.2.0 // indirect
 	github.com/imdario/mergo v0.3.10 // indirect
-	github.com/improbable-eng/thanos v0.3.2 // indirect
 	github.com/mailru/easyjson v0.7.2 // indirect
-	github.com/martinlindhe/base36 v1.0.0 // indirect
-	github.com/mattbaird/jsonpatch v0.0.0-20171005235357-81af80346b1a // indirect
-	github.com/operator-framework/operator-lifecycle-manager v0.0.0-20191115003340-16619cd27fa5 // indirect
 	github.com/operator-framework/operator-sdk v0.19.2
 	github.com/prometheus/common v0.11.1 // indirect
-	github.com/prometheus/tsdb v0.8.0 // indirect
 	github.com/spf13/pflag v1.0.5
 	go.uber.org/zap v1.15.0 // indirect
 	golang.org/x/crypto v0.0.0-20200728195943-123391ffb6de // indirect
@@ -38,10 +29,8 @@ require (
 	k8s.io/klog/v2 v2.3.0 // indirect
 	k8s.io/kube-openapi v0.0.0-20200727223308-4c7aaf529f79
 	k8s.io/kube-state-metrics v1.9.7 // indirect
-	k8s.io/kubernetes v1.16.2 // indirect
 	k8s.io/utils v0.0.0-20200731180307-f00132d28269 // indirect
 	sigs.k8s.io/controller-runtime v0.6.2
-	sigs.k8s.io/testing_frameworks v0.1.2 // indirect
 )
 
 // Pinned to kubernetes-1.16.2
