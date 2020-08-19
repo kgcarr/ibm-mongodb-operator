@@ -23,6 +23,7 @@ metadata:
     kubernetes.io/description: The MongoDB SCC is based on the restricted scc. It denies access to all host features and requires
       pods to be run with a UID, and SELinux context that are allocated to the namespace.
   name: mongodb-scc
+  namespace: ibm-common-services
 allowHostDirVolumePlugin: false
 allowHostIPC: false
 allowHostNetwork: false
