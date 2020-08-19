@@ -135,6 +135,11 @@ func (r *ReconcileMongoDB) Reconcile(request reconcile.Request) (reconcile.Resul
 		return reconcile.Result{}, err
 	}
 
+	log.Info("creating mongodb security service account")
+	if err := r.createFromYaml(instance, []byte(mongoSCC)); err != nil {
+		return reconcile.Result{}, err
+	}
+
 	log.Info("creating mongodb service")
 	if err := r.createFromYaml(instance, []byte(service)); err != nil {
 		return reconcile.Result{}, err
