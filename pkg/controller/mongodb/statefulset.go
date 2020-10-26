@@ -63,6 +63,13 @@ spec:
           matchLabels:
             key: app
             values: icp-mongodb
+      - maxSkew: 1
+        topologyKey: topology.kubernetes.io/region
+        whenUnsatisfiable: ScheduleAnyway
+        labelSelector:
+          matchLabels:
+            key: app
+            values: icp-mongodb
       affinity:
         podAntiAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
