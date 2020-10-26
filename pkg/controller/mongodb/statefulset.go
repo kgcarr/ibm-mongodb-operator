@@ -55,6 +55,11 @@ spec:
       hostNetwork: false
       hostPID: false
       hostIPC: false
+      topologySpreadConstraints:
+      - maxSkew: 1
+        topologyKey: topology.kubernetes.io/zone
+        whenUnsatisfiable: ScheduleAnyway
+        labelSelector: app
       affinity:
         podAntiAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
