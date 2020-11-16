@@ -14,6 +14,7 @@ Red Hat OpenShift Container Platform 4.2 or newer installed on one of the follow
 
 | Version | Date | Details |
 | ----- | ---- | ----------------- |
+| 1.2.0 | Dec 2020 | Moved the operator sdk to 1.0.0 bringing in new scaffolding |
 | 1.1.0 | July 2020 | Allow users to configure their own admin secret </br> - The CSV defines dependencies that it has to run
 | 1.0.0 | March 2020 | Initial Offering of MongoDB operator
 
@@ -112,4 +113,3 @@ data:
 The operator does not support updating the CR in version 1.0.0. To make changes to a deployed MongoDB instance, it is best to directly edit the statefulset.
 
 When you deploy MongoDB, it is better to use 3 replicas, especially if you are not backing up your data. It is possible for the data to be corrupted and recovering from a 3-replica deployment is much easier.
-
